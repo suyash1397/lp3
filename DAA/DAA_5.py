@@ -1,48 +1,43 @@
-def is_safe(board, row, col):
-    # Check the row on the left side
-    for i in range(col):
-        if board[row][i] == 1:
-            return False
+#Number of queens
+print ("Enter the number of queens")
+N = int(input())
 
-    # Check upper diagonal on the left side
-    for i, j in zip(range(row, -1, -1), range(col, -1, -1)):
-        if board[i][j] == 1:
-            return False
+#chessboard
+#NxN matrix with all elements 0
+board = [[0]*N for _ in range(N)]
 
-    # Check lower diagonal on the left side
-    for i, j in zip(range(row, len(board), 1), range(col, -1, -1)):
-        if board[i][j] == 1:
-            return False
+def is_attack(i, j):
+    #checking if there is a queen in row or column
+    for k in range(0,N):
+        if board[i][k]==1 or board[k][j]==1:
+            return True
+    #checking diagonals
+    for k in range(0,N):
+        for l in range(0,N):
+            if (k+l==i+j) or (k-l==i-j):
+                if board[k][l]==1:
+                    return True
+    return False
 
-    return True
-
-def solve_n_queens(board, col):
-    if col == len(board):
+def N_queen(n):
+    #if n is 0, solution found
+    if n==0:
         return True
-
-    for i in range(len(board)):
-        if is_safe(board, i, col):
-            board[i][col] = 1
-            if solve_n_queens(board, col + 1):
-                return True
-            board[i][col] = 0  # Backtrack if placement leads to no solution
+    for i in range(0,N):
+        for j in range(0,N):
+            '''checking if we can place a queen here or not
+            queen will not be placed if the place is being attacked
+            or already occupied'''
+            if (not(is_attack(i,j))) and (board[i][j]!=1):
+                board[i][j] = 1
+                #recursion
+                #wether we can put the next queen with this arrangment or not
+                if N_queen(n-1)==True:
+                    return True
+                board[i][j] = 0
 
     return False
 
-def print_board(board):
-    for row in board:
-        print(" ".join(["Q" if cell == 1 else "-" for cell in row]))
-
-# Create an 8x8 chessboard with all cells initialized to 0
-n = 8
-chessboard = [[0 for _ in range(n)] for _ in range(n)]
-
-# Place the first queen in the first row, first column
-chessboard[0][0] = 1
-
-# Try to solve the remaining queens
-if solve_n_queens(chessboard, 1):
-    print("Solution found:")
-    print_board(chessboard)
-else:
-    print("No solution exists.")
+N_queen(N)
+for i in board:
+    print (i)
