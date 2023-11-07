@@ -1,3 +1,4 @@
+# for seperate characters
 import heapq 
 class node: 
     def __init__(self, freq, symbol, left=None, right=None): 
@@ -73,3 +74,62 @@ while len(nodes) > 1:
     heapq.heappush(nodes, newNode) 
     
 printNodes(nodes[0]) 
+
+# for string inputs
+import heapq
+class node:
+    def __init__(self,freq,symbol,right=None,left=None):
+        self.right=right
+        self.left=left
+        self.freq=freq
+        self.symbol=symbol
+        self.huff=''
+        
+    def __lt__(self, nxt):
+        return self.freq < nxt.freq
+
+def printNodes(node,val='',encodedString='',codes=''):
+    newVal = val+str(node.huff)
+    
+    if(node.left):
+        encodedString , codes = printNodes(node.left,newVal,encodedString,codes)
+    if(node.right):
+        encodedString , codes = printNodes(node.right,newVal,encodedString,codes)
+    if(not node.left and not node.right):
+        encodedString+=node.symbol
+        codes+=newVal
+    return encodedString,codes
+
+
+def huffman(input_string):
+    chars = list(set(input_string))
+    freq = [input_string.count(char) for char in chars]
+    
+    nodes = []
+    
+    for x in range(len(chars)):
+        heapq.heappush(nodes,node(freq[x],chars[x]))
+        
+        
+    while len(nodes) > 1:
+        left = heapq.heappop(nodes)
+        right = heapq.heappop(nodes)
+        
+        left.huff = '0'
+        right.huff = '1'
+        
+        newNode = node(left.freq+right.freq,left.symbol+right.symbol,right,left)
+        
+        heapq.heappush(nodes,newNode)
+    
+    print("Huffman Code : ")
+    
+    encoded_string , codes = printNodes(nodes[0],"","","")
+    print(codes)
+    return encoded_string
+
+input_string = input("Enter String : ")
+
+encoded_string = huffman(input_string)
+
+print("Encoded String : ", encoded_string)
