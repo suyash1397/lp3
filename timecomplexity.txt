@@ -1,0 +1,48 @@
+
+The time complexities of Quick Sort and Merge Sort algorithms are as follows:
+
+Quick Sort:
+
+Worst-case time complexity: O(n^2)
+Average-case time complexity: O(n*log(n))
+Best-case time complexity: O(n*log(n))
+In-place sorting: Yes (typically uses a small amount of additional memory)
+Merge Sort:
+
+Worst-case time complexity: O(n*log(n))
+Average-case time complexity: O(n*log(n))
+Best-case time complexity: O(n*log(n))
+In-place sorting: No (requires additional memory for merging)
+
+Fractional Knapsack:
+
+Time Complexity: O(n*log(n))
+
+Dynamic Programming Knapsack (0/1 Knapsack):
+
+Time Complexity: O(n*W), where n is the number of items and W is the maximum weight capacity of the knapsack.
+
+
+
+
+Recursive Fibonacci:
+
+Time Complexity: O(2^n)
+
+Iterative Fibonacci (using a loop or dynamic programming):
+
+Time Complexity: O(n)
+
+Building the Huffman Tree using a Priority Queue (Min-Heap):
+
+Time Complexity: O(n log n), where "n" is the number of unique symbols or characters in the input text.
+Building the Huffman Tree using Sorting and Merging:
+
+Time Complexity: O(n log n), where "n" is the number of unique symbols or characters in the input text.
+
+the time complexity of solving the N-Queens problem recursively using backtracking is O(N!)
+
+
+
+
+
